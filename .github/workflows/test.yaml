@@ -1,5 +1,20 @@
-on: workflow_dispatch
+name: Test Slack
+
+on:
+  workflow_dispatch:
+    inputs:
+      channel:
+        type: string
+        required: true
+      message:
+        type: string
+        required: true
 
 jobs:
   Test:
     uses: ./.github/workflows/slack-notify.yaml
+    with:
+      channel: ${{ inputs.channel }}
+      message: ${{ inputs.message }}
+    secrets:
+      slack_webhook_url: ${{ secrets.SLACK_WEBHOOK_URL }}
