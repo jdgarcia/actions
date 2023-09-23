@@ -11,6 +11,10 @@ on:
         type: string
         description: The message to post to Slack
         required: true
+      color:
+        type: string
+        description: Hex code for the sidebar color
+        
     secrets:
       slack_webhook_url:
         description: The SLACK_WEBHOOK_URL secret
