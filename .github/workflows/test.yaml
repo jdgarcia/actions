@@ -1,0 +1,5 @@
+on: workflow_dispatch
+
+jobs:
+  Test:
+    uses: ./.github/workflows/slack-notify.yaml
