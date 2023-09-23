@@ -18,5 +18,6 @@ jobs:
     with:
       channel: ${{ inputs.channel }}
       message: ${{ inputs.message }}
+      color: ${{ inputs.color }}
     secrets:
       slack_webhook_url: ${{ secrets.SLACK_WEBHOOK_URL }}
