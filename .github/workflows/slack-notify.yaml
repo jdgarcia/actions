@@ -32,7 +32,7 @@ jobs:
               "channel": "${{ inputs.channel }}",
               "attachments": [
                 {
-                  "color": "${{ inputs.color }}"
+                  "color": "${{ inputs.color }}",
                   "text": "${{ inputs.message }}"
                 }
               ]
