@@ -1,15 +1,15 @@
-name: Slack Notify
+name: Slack Message
 
 on:
   workflow_call:
     inputs:
       channel:
         type: string
-        description: The Slack to post the message to
+        description: The Slack channel to post the message to
         required: true
       message:
         type: string
-        description: The message to post to Slack
+        description: The message to post
         required: true
       color:
         type: string
@@ -21,10 +21,10 @@ on:
         required: true
 
 jobs:
-  Slack-Notify:
+  Slack-Message:
     runs-on: ubuntu-latest
     steps:
-      - name: Post to Slack
+      - name: Post Slack Message
         uses: slackapi/slack-github-action@v1.24.0
         with:
           payload: |
