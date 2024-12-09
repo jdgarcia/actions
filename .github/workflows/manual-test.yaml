@@ -12,12 +12,6 @@ on:
         type: boolean
         description: Should notify Slack?
         required: false
-      channel:
-        type: string
-        required: true
-      message:
-        type: string
-        required: true
       color:
         type: string
 
@@ -44,7 +38,7 @@ jobs:
     if: ${{ inputs.notify == true }}
     uses: ./.github/workflows/slack-notify.yaml
     with:
-      channel: ${{ inputs.channel }}
+      channel: feed-slack-webhook-test
       message: ${{ needs.Resolve-Ref-Sha.outputs.sha }}
       color: ${{ inputs.color }}
     secrets:
