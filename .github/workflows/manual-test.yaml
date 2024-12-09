@@ -23,7 +23,7 @@ jobs:
     steps:
       - name: Resolve Ref
         id: resolve
-        run: echo "git rev-parse ${{ inputs.ref }}" >> "$GITHUB_OUTPUT"
+        run: echo "$(git rev-parse ${{ inputs.ref }})" >> "$GITHUB_OUTPUT"
   Checkout:
     needs: Resolve-Ref-Sha
     runs-on: ubuntu-latest
