@@ -13,6 +13,10 @@ on:
         required: false
       color:
         type: string
+      echo:
+        type: boolean
+        description: Should echo the ref?
+        required: false
 
 jobs:
   #alsdkjf asdf
@@ -25,6 +29,7 @@ jobs:
   #       id: resolve
   #       run: echo "$(git rev-parse ${{ inputs.ref }})" >> "$GITHUB_OUTPUT"
   Echo:
+    if: ${{ inputs.echo == true }}
     runs-on: ubuntu-latest
     steps:
       - name: Echo
@@ -32,6 +37,7 @@ jobs:
           echo "github.sha ${{ github.sha }}"
           echo "github.workflow_sha ${{ github.workflow_sha }}"
   Checkout:
+    needs: Echo
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
