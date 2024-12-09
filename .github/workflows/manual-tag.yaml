@@ -20,11 +20,11 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
       with:
-        ref: ${{ github.event.inputs.commit_sha }}
+        ref: ${{ inputs.commit_sha }}
 
     - name: Force push tag
       run: |
-        git tag -f ${{ github.event.inputs.tag_name }} ${{ github.event.inputs.commit_sha }}
-        git push origin ${{ github.event.inputs.tag_name }} --force
-      # env:
-      #   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        git tag ${{ inputs.tag_name }} -f
+        git push origin ${{ inputs.tag_name }} -f
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
