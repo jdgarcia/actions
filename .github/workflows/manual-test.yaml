@@ -1,0 +1,41 @@
+name: Manual Test
+
+on:
+  workflow_dispatch:
+    inputs:
+      sha:
+        type: string
+        description: The commit SHA to checkout
+        required: false
+      notify:
+        type: boolean
+        description: Should notify Slack?
+        required: false
+      channel:
+        type: string
+        required: true
+      message:
+        type: string
+        required: true
+      color:
+        type: string
+
+jobs:
+  Checkout:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@ac593985615ec2ede58e132d2e21d2b1cbd6127c
+        with:
+          ref: ${{ inputs.sha }}
+  Notify:
+    needs: Checkout
+    if: ${{ inputs.notify == true }}
+    uses: ./.github/workflows/slack-notify.yaml
+    with:
+      channel: ${{ inputs.channel }}
+      message: ${{ inputs.message }}
+      color: ${{ inputs.color }}
+    secrets:
+      slack_webhook_url: ${{ secrets.SLACK_WEBHOOK_URL }}
