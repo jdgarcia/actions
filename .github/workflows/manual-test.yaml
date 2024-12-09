@@ -6,7 +6,8 @@ on:
       sha:
         type: string
         description: The commit SHA to checkout
-        required: false
+        required: true
+        default: main
       notify:
         type: boolean
         description: Should notify Slack?
