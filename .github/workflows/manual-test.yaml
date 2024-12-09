@@ -46,12 +46,12 @@ jobs:
         with:
           ref: ${{ inputs.ref || github.sha }}
   Notify:
-    needs: Checkout
+    needs: Echo
     if: ${{ inputs.notify == true }}
     uses: ./.github/workflows/slack-notify.yaml
     with:
       channel: feed-slack-webhook-test
-      message: ${{ inputs.ref || github.sha }}
+      message: ${{ needs.Echo.result }}
       color: ${{ inputs.color }}
     secrets:
       slack_webhook_url: ${{ secrets.SLACK_WEBHOOK_URL }}
