@@ -47,7 +47,7 @@ jobs:
           ref: ${{ inputs.ref || github.sha }}
   Notify:
     needs: Echo
-    if: ${{ always() && inputs.notify == true }}
+    if: ${{ always() && inputs.notify == true && (needs.Echo.result == 'success' || needs.Echo.result == 'skipped') }}
     uses: ./.github/workflows/slack-notify.yaml
     with:
       channel: feed-slack-webhook-test
