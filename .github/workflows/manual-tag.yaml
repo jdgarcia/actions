@@ -21,10 +21,9 @@ jobs:
       uses: actions/checkout@v2
       with:
         ref: ${{ inputs.commit_sha }}
+        ssh-key: ${{ secrets.ENV_TAGGER_SECRET_KEY }}
 
     - name: Force push tag
       run: |
         git tag ${{ inputs.tag_name }} -f
         git push origin ${{ inputs.tag_name }} -f
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
