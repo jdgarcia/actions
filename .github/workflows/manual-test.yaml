@@ -16,30 +16,29 @@ on:
         type: string
 
 jobs:
-  Resolve-Ref-Sha:
-    runs-on: ubuntu-latest
-    outputs:
-      sha: ${{ steps.resolve.outputs.sha }}
-    steps:
-      - name: Resolve Ref
-        id: resolve
-        run: echo "$(git rev-parse ${{ inputs.ref }})" >> "$GITHUB_OUTPUT"
+  # Resolve-Ref-Sha:
+  #   runs-on: ubuntu-latest
+  #   outputs:
+  #     sha: ${{ steps.resolve.outputs.sha }}
+  #   steps:
+  #     - name: Resolve Ref
+  #       id: resolve
+  #       run: echo "$(git rev-parse ${{ inputs.ref }})" >> "$GITHUB_OUTPUT"
   Checkout:
-    needs: Resolve-Ref-Sha
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
       - name: Checkout
         uses: actions/checkout@ac593985615ec2ede58e132d2e21d2b1cbd6127c
         with:
-          ref: ${{ needs.Resolve-Ref-Sha.outputs.sha }}
+          ref: ${{ inputs.ref || github.sha }}
   Notify:
-    needs: [Checkout, Resolve-Ref-Sha]
+    needs: Checkout
     if: ${{ inputs.notify == true }}
     uses: ./.github/workflows/slack-notify.yaml
     with:
       channel: feed-slack-webhook-test
-      message: ${{ needs.Resolve-Ref-Sha.outputs.sha }}
+      message: ${{ inputs.ref || github.sha }}
       color: ${{ inputs.color }}
     secrets:
       slack_webhook_url: ${{ secrets.SLACK_WEBHOOK_URL }}
