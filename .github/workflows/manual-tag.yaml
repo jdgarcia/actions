@@ -1,0 +1,22 @@
+name: Manual Tag
+
+on:
+  workflow_dispatch:
+    inputs:
+      ref:
+        type: string
+        required: true
+      name:
+        type: string
+        required: true
+
+jobs:
+  Echo:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Echo
+        run: |
+          echo "github actor 1 ${{ github.actor }}"
+          echo "github actor 2 ${GITHUB_ACTOR}"
+          git tag ${{ inputs.name }} -f ${{ inputs.ref }}
+          git push origin ${{ inputs.name }} -f
