@@ -11,10 +11,19 @@ on:
         required: true
 
 jobs:
-  Echo:
+  Checkout:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@ac593985615ec2ede58e132d2e21d2b1cbd6127c
+        with:
+          ref: ${{ github.sha }}
+  Tag:
+    needs: Checkout
     runs-on: ubuntu-latest
     steps:
-      - name: Echo
+      - name: Tag
         run: |
           echo "github actor 1 ${{ github.actor }}"
           echo "github actor 2 ${GITHUB_ACTOR}"
